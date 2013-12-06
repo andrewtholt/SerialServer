@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -x
+
+echo "Build opkg package"
+
+if [ ! -d ./opkg-arm/usr/local/bin ]; then
+    mkdir -p ./opkg-arm/usr/local/bin
+fi
+
+if [ ! -d ./opkg-arm/etc/init.d ]; then
+    mkdir -p ./opkg-arm/etc/init.d 
+fi
+
+DESTDIR=./opkg-arm make -f Makefile.arm install
+
+cp ./serialServer ./opkg-arm/usr/local/bin
+cp ./serialServer.sh ./opkg-arm/etc/init.d/serialServer
+# 
+opkg-build -O -o root -g root ./opkg-arm
+# 
