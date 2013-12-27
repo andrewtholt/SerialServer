@@ -11,6 +11,9 @@
 *.so
 *.so.*
 *.dylib
+# Packages, build products
+*.opk
+*.deb
 
 # Executables
 *.exe
@@ -20,3 +23,5 @@ clientTest
 rediSerial
 serialServer
 tst
+serialStdio
+opkg-arm
