@@ -1,0 +1,11 @@
+Package: serialserver
+Version: 1.0.0
+Depends: 
+Provides: 
+Source: package/base-files
+Section: misc
+Priority: optional
+Maintainer: Andrew
+Architecture: arm
+Description:  Connect a serial port to a socket.
+
