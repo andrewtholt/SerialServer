@@ -7,14 +7,13 @@
 *.a
 
 # Shared objects (inc. Windows DLLs)
-*.dll
 *.so
 *.so.*
 *.dylib
 # Packages, build products
 *.opk
 *.deb
-
+#
 # Executables
 *.exe
 *.out
@@ -24,4 +23,3 @@ rediSerial
 serialServer
 tst
 serialStdio
-opkg-arm
