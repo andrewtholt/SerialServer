@@ -96,6 +96,8 @@ void usage() {
     printf("\t-p <num>\tSet port number.  Default is 4001.\n");
     printf("\t-s <dev>\tSet serial port name. Default is /dev/ttyUSB0\n");
     printf("\t-v\t\tVerbose messages.\n");
+    printf("\n");
+    printf("\nNOTE: Baud rate is fixed at 2400 Baud.\n");
     printf("\t\n");
     printf("\t\n");
 }
