@@ -112,8 +112,8 @@ int main(int argc, char *argv[]) {
     int portNumber,opt;
     bool verbose=false;
     int tmp;
-    int        thr_id;         // thread ID for the newly created thread 
-    pthread_t  p_thread;       // thread's structure 
+    int        thr_id;         // thread ID for the newly created thread
+    pthread_t  p_thread;       // thread's structure
     int        a         = 1;  // thread 1 identifying number
     bool runFlag=true;
     //    bool exitFlag=false;
@@ -125,7 +125,10 @@ int main(int argc, char *argv[]) {
     strsave* serialPort;
     strsave* hostname;
     void **thrRet;
-
+    
+    int baudRate=0;
+    int br=0;
+    
     globals = new globalSettings();
 
     portNumber = 4001;
@@ -133,8 +136,11 @@ int main(int argc, char *argv[]) {
     serialPort = new strsave((char *)"/dev/ttyUSB0");
 
 
-    while ((opt = getopt(argc, argv, "dfh?n:p:s:v")) != -1) {
+    while ((opt = getopt(argc, argv, "b:dfh?n:p:s:v")) != -1) {
         switch(opt) {
+            case 'b':
+                baudRate=atoi(optarg);
+                break;
             case 'd':
                 globals->setDebug();
                 printf("\nDebug on\n");
@@ -194,10 +200,25 @@ int main(int argc, char *argv[]) {
     }
 
     tmp = open (serialPort->get(), O_RDWR | O_NOCTTY | O_SYNC);
+    
+    switch( baudRate) {
+      case 0:
+      case 2400:
+        br = B2400;
+        break;
+      case 4800:
+        br = B4800;
+        break;
+      default:
+        br=B2400;
+        break;
+        
+    }
 
-    globals->setBaudRate(B2400);
-
-    //    globals->dump();
+//    globals->setBaudRate(B2400);
+    globals->setBaudRate( br );
+    
+//    globals->dump();
 
     if ( tmp < 0 ) {
         perror("Failed to open serial port");
