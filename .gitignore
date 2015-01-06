@@ -15,6 +15,7 @@
 #
 *~
 # Packages, build products
+*.ipk
 *.opk
 *.deb
 #
