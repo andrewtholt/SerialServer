@@ -186,7 +186,7 @@ int main(int argc, char* argv[]) {
 
     if(globals->getVerbose()) {
         printf("Serial port FD  : %d\n", globals->getSerial());
-        printf("Redid Socket FD : %d\n", globals->getSocket());
+        printf("Redis Socket FD : %d\n", globals->getSocket());
     }
 
 
