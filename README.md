@@ -3,6 +3,7 @@ Serial Server
 Connect to serial port via a socket.
 
 Usage:
+
 	-d		Debug messages.
 	
 	-f		Run in the foreground.
