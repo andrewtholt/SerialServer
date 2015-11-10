@@ -40,3 +40,10 @@ bool strsave::equals( char *n) {
   }
 
 }
+
+void *mkString(char *p) {
+    strsave *n;
+    n = new strsave(p);
+    return((void *) n);
+}
+

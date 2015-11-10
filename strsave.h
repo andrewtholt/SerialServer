@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 
+#ifdef __cplusplus
 class strsave {
   char *ptr;
 public:
@@ -11,4 +12,15 @@ public:
   char *get();
   bool equals(char *);
 };
+#endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+void *mkString(char *ptr);
+void dumpString( void *foo);
+void killString(void *foo);
+
+#ifdef __cplusplus
+}
+#endif
