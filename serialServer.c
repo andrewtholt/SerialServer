@@ -316,7 +316,7 @@ int main (int argc, char *argv[]) {
 
         while (runFlag) {
             memset (buffer, 0, sizeof (buffer));
-            n = read (newsockfd, buffer, 3);
+            n = read (newsockfd, buffer, 1);
 
             if (n < 0) {
                 error ("ERROR reading from socket");
