@@ -39,8 +39,9 @@ void error (const char *msg) {
 
 /*
  * Setup serial port and the block on read.
+ * Reads from the serial and writes to the socket.
  */
-void     * serialThread (void *data) {
+void *serialThread(void *data) {
 
     char      buf[2];		// Read one char at a time into this buffer.
     char      inBuffer[32];
@@ -52,8 +53,8 @@ void     * serialThread (void *data) {
     /*
      *       if(globals->getDebug()) {
      *       printf("\nserialThread\n");
-}
-*/
+     }
+     */
     //
     // set speed to 115,200 bps, 8n1 (no parity)
     //
@@ -64,23 +65,22 @@ void     * serialThread (void *data) {
     setBlocking (globals->getSerial (), 1);
 
     while (globals->getRunFlag ()) {
-        n = read (globals->getSerial (), buf, 1);
-
+        n = read(globals->getSerial(), buf, 1);
         /*
          *           if(globals->getDebug()) {
          *        //            putchar(buf[0]);
          *        fflush(stdout);
-    }
-    */
+         }
+         */
 
         if (buf[0] > 0x20 && buf[0] < 0x80) {
-            sprintf (msgBuffer, "Out %02x:%c\n", buf[0], buf[0]);
+            sprintf(msgBuffer, "Out %02x:%c\n", buf[0], buf[0]);
         }
         else {
-            sprintf (msgBuffer, "Out %02x:  \n", buf[0]);
+            sprintf(msgBuffer, "Out %02x:  \n", buf[0]);
         }
         globals->writeLog (msgBuffer);
-        n = write (globals->getSocket (), buf, 1);
+        n = write(globals->getSocket (), buf, 1);
     }
 
     /* terminate the thread */
@@ -94,7 +94,7 @@ void usage () {
     printf ("\t-f\t\tRun in the foreground.\n");
     printf ("\t-h|-?\t\tThis.\n");
     printf
-    ("\t-n <hostname|IP>\tAddress to listen on, default is localhost.\n");
+        ("\t-n <hostname|IP>\tAddress to listen on, default is localhost.\n");
     printf ("\t-p <num>\tSet port number.  Default is 4001.\n");
     printf ("\t-s <dev>\tSet serial port name. Default is /dev/ttyUSB0\n");
     printf ("\t-b <baud rate>\tSet serial port speed\n");
@@ -189,7 +189,7 @@ int main (int argc, char *argv[]) {
     else {
         globals->openLog ((char *) "/dev/tty");
     }
-    globals->writeLog ((char *) "Logging info...\n");
+    globals->writeLog((char *) "Logging info...\n");
 
     if (true == verbose) {
         printf ("Port:    %d\n", portNumber);
@@ -205,7 +205,7 @@ int main (int argc, char *argv[]) {
         }
     }
 
-    tmp = open (serialPort->get (), O_RDWR | O_NOCTTY | O_SYNC);
+    tmp = open(serialPort->get (), O_RDWR | O_NOCTTY | O_SYNC);
 
     switch (baudRate) {
         case 0:
@@ -299,7 +299,7 @@ int main (int argc, char *argv[]) {
     fprintf (pidFile, "%d\n", getpid ());
     fclose (pidFile);
 
-    thr_id = pthread_create (&p_thread, NULL, serialThread, (void *) &a);
+    thr_id = pthread_create(&p_thread, NULL, serialThread, (void *) &a);
 
     while (globals->getRunFlag ()) {
         runFlag = true;
@@ -333,7 +333,7 @@ int main (int argc, char *argv[]) {
                     sprintf (scratch, ">%02x<\n", buffer[0]);
                 }
                 globals->writeLog ((char *) scratch);
-                
+
                 // write char to serial port.
                 n = write (globals->getSerial (), buffer, 1);
             }
