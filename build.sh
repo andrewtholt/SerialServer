@@ -40,4 +40,6 @@ if [ -f $MAKEFILE ]; then
 	make -j 4 -f $MAKEFILE $ARGS
 else
 	echo "$MAKEFILE does not exist."
+    echo "Use default."
+	make -j 4 $ARGS
 fi

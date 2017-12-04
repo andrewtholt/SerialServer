@@ -287,7 +287,8 @@ int main (int argc, char *argv[]) {
 
     sid = setsid ();
     if (sid < 0) {
-        exit (10);
+        perror("setsid:");
+//        exit (10);
     }
 
 
