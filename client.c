@@ -86,7 +86,7 @@ char *redisCommand(int fd,char *cmd) {
   bzero(redisPacket, redisLength);
   sprintf(redisPacket,"*%d\r\n", tokenCount);
   for( i=0; i<tokenCount; i++) {
-    sprintf(buildBuffer,"$%d\r\n%s\r\n",strlen(tokens[i]),tokens[i]);
+    sprintf(buildBuffer,"$%d\r\n%s\r\n",(int)strlen(tokens[i]),tokens[i]);
     strcat(redisPacket,buildBuffer);
     //    printf("tokens[%d]=>%s<\n",i,tokens[i]);
   }

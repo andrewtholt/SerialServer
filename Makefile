@@ -19,8 +19,8 @@ client.o:	client.c
 rediSerial:	rediSerial.c rediSerial.h globals.o strsave.o serialComms.o
 	$(CC) $(CFLAGS) $@.c globals.o strsave.o serialComms.o -o $@  -lpthread
 
-serialServer:	serialServer.c rediSerial.h globals.o strsave.o serialComms.o 
-	$(CC) $(CFLAGS) $@.c globals.o strsave.o serialComms.o -o $@  -lpthread
+serialServer:	serialServer.cpp rediSerial.h globals.o strsave.o serialComms.o 
+	$(CC) $(CFLAGS) $@.cpp globals.o strsave.o serialComms.o -o $@  -lpthread
 
 serialComms.o:	serialComms.c
 	$(CC) -c $(CLAGS) $? -o $@

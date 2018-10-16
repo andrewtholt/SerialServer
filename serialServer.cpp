@@ -336,6 +336,8 @@ int main (int argc, char *argv[]) {
                 globals->writeLog ((char *) scratch);
 
                 // write char to serial port.
+                // TODO add option to pace transmissions, i.e. 
+                // specify ms between chars
                 n = write (globals->getSerial (), buffer, 1);
             }
             else {
