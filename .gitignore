@@ -29,3 +29,6 @@ rediSerial
 serialServer
 tst
 serialStdio
+build
+Debug
+Release

@@ -84,7 +84,7 @@ bool globalSettings::openLog(char *name) {
 
 void globalSettings::writeLog(char *msg) {
     if ( out != (FILE *)NULL) {
-        fprintf(out,msg);
+        fprintf(out,"%s",msg);
         fflush( out );
     }
 }
