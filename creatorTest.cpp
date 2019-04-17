@@ -10,6 +10,7 @@
 #include <errno.h>
 #include <sys/poll.h>
 
+
 #include <stdint.h>
 
 #include "serialComms.h"
@@ -43,9 +44,9 @@ void dump(char *comment, uint8_t *ptr, int len) {
     printf("%-16s:",comment);
     for(int i =0 ; i< len ; i++) {
         if( ptr[i] > 0x1f && ptr[i] < 0x80) {
-        printf(" %c ", ptr[i]);
+            printf(" %c ", ptr[i]);
         } else {
-        printf(" . ");
+            printf(" . ");
         }
     }
 
@@ -62,7 +63,7 @@ void flushRx( int ser ) {
         ret = poll(fds,1, 10);
         fds[0].fd = ser;
         fds[0].events = POLLIN;
-        n = write(ser, &byte, 1);
+        n = read(ser, &byte, 1);
         printf("%d bytes read\n",n);
     } while(ret <= 0) ;
 }
@@ -95,7 +96,9 @@ int sendCmd( int ser,uint8_t *command, uint8_t *response,int len) {
     n = write(ser, tmp, 1);
 
     r = read(ser, response, 255);
-//    r = read(ser, response+r, 255);
+    uint16_t l = ( response[1] << 8) + ( response[2] );
+    printf("==>len=%02d\n", l);
+    r = read(ser, response+r, 255);
 
     dump((char *)"Sent ENQ", response, 24);
     return r;
@@ -111,7 +114,7 @@ int cardReset( int ser ) {
     cmd[2]=0x02;
     cmd[3]=0x30;
     cmd[4]=0x31;
-//    cmd[4]=0x30;
+    //    cmd[4]=0x30;
     cmd[5]=0x03;
 
     cmd[6] = cmd[0] ^ cmd[1] ^ cmd[2] ^ cmd[3] ^ cmd[4] ^ cmd[5];
@@ -212,13 +215,13 @@ int main( int argc, char *argv[]) {
     int count = 1;
     int ret=-1;
 
-    r=cardReset( ser );
-//    r=cardEject( ser );
+//    r=cardReset( ser );
+    r=cardEject( ser );
 
     exit(0);
 
     for( int i=0; i<10;i++) {
-        flushRx( ser );
+//        flushRx( ser );
         usleep(MS(1000));
 
         printf("around %02d and ...\n", i);
@@ -226,9 +229,9 @@ int main( int argc, char *argv[]) {
         printf("cardReset ret=%02d\n",r);
 
         /*
-        r= checkStatus( ser );
-        printf("checkStatus ret=%02d\n",r);
-        */
+           r= checkStatus( ser );
+           printf("checkStatus ret=%02d\n",r);
+         */
     }
 
     return(0);
