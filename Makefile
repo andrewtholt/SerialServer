@@ -1,28 +1,29 @@
 
-CC=g++
-CFLAGS=-g
+CC?=g++
+CFLAGS?=-g
+CXX?=g++
 
-BINS=serialServer rediSerial tst clientTest
+BINS=serialServer tst clientTest # rediSerial
 
 all:	$(BINS)
 
-clientTest.o:	clientTest.c
+clientTest.o:	clientTest.cpp
 	$(CC) -c $(CFLAGS) $? -o $@
 
 clientTest:	clientTest.o client.o serialComms.o serialComms.h
 	$(CC) $(CFLAGS) clientTest.o client.o serialComms.o -o $@
 
 
-client.o:	client.c
+client.o:	client.cpp
 	$(CC) $(CFLAGS) -c $? -o $@
 
 rediSerial:	rediSerial.c rediSerial.h globals.o strsave.o serialComms.o
 	$(CC) $(CFLAGS) $@.c globals.o strsave.o serialComms.o -o $@  -lpthread
 
-serialServer:	serialServer.c rediSerial.h globals.o strsave.o serialComms.o 
-	$(CC) $(CFLAGS) $@.c globals.o strsave.o serialComms.o -o $@  -lpthread
+serialServer:	serialServer.cpp rediSerial.h globals.o strsave.o serialComms.o 
+	$(CXX) $(CFLAGS) $@.cpp globals.o strsave.o serialComms.o -o $@  -lpthread
 
-serialComms.o:	serialComms.c
+serialComms.o:	serialComms.cpp
 	$(CC) -c $(CLAGS) $? -o $@
 
 tst:	tst.cpp globals.o strsave.o

@@ -17,4 +17,10 @@ Usage:
 NOTE: Default behaviour is:
 	serialServer -b 2400 -p 4001 -s /dev/ttyUSB0
 	
-	
+	If building for ARM Linux, you will need a xcompiler (say from buildroot) and then
+    run cmake like this:
+
+    mkdir ARM
+    cd ARM
+    cmake -DARM=1 ..
+    make
