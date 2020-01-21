@@ -26,7 +26,7 @@ add_executable(serialServer serialComms.cpp serialServer.cpp globals.cpp strsave
 add_executable(clientTest client.cpp clientTest.cpp serialComms.cpp)
 add_executable(creatorTest client.cpp creatorTest.cpp serialComms.cpp)
 
-# target_link_libraries(serialServer ${THREADS})
+target_link_libraries(serialServer ${THREADS})
 # target_link_libraries(clientTest ${THREADS})
 # target_link_libraries(creatorTest ${THREADS})
 target_link_libraries(creatorTest)
