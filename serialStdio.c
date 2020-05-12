@@ -20,6 +20,7 @@
 
 globalSettings* globals;
 #include<stdio.h>
+#include<stdbool.h>
 #include<signal.h>
 #include<unistd.h>
 
