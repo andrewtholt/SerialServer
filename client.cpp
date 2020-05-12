@@ -205,7 +205,7 @@ int redisPing(int ser) {
 int enQueue(int ser, char *qname, char *data, int len) {
     char cmdBuffer[255];
     Value v;
-    int status;
+    int status=0;
 
     sprintf(cmdBuffer,"LPUSH %s %s", qname,data);
     redisCommand(ser,(char *)cmdBuffer);
